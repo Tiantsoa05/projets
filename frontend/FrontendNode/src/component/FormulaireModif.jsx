@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-export default function FormulaireModif({ dataEdit }) {
+export default function FormulaireModif({ dataEdit ,passModifData, closeModal}) {
 
     const [detailOuvrier, setInfoOuvrier] = useState(dataEdit)
-    const { num_ouvrier, nom_ouvrier, sexe_ouvrier, nbr_jours, taux_journalier } = detailOuvrier
+    const { id, num_ouvrier, nom_ouvrier, sexe_ouvrier, nbr_jours, taux_journalier } = detailOuvrier
 
     const [num, setNum] = useState(num_ouvrier)
     const [nom, setNom] = useState(nom_ouvrier)
@@ -11,8 +11,18 @@ export default function FormulaireModif({ dataEdit }) {
     const [nbr, setNbr] = useState(nbr_jours)
     const [taux, setTaux] = useState(taux_journalier)
 
-    const sendModif = function (){
-        
+    const sendModif = function (e){
+        e.preventDefault()
+        let data = {
+            id,
+            num_ouvrier:num,
+            nom_ouvrier:nom,
+            sexe_ouvrier:sexe,
+            nbr_jours:nbr,
+            taux_journalier:taux
+        }
+        passModifData(data)
+        closeModal()
     }
 
     return <div className="blur-container">

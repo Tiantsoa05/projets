@@ -3,7 +3,7 @@ import { useState } from "react";
 import FormulaireModif from "./FormulaireModif";
 
 
-export default function ListeOuvrier({ data }) {
+export default function ListeOuvrier({ data, passModifData }) {
 
 
     const [formModif, setFormModif] = useState(false)
@@ -16,6 +16,10 @@ export default function ListeOuvrier({ data }) {
     const remplirModifForm = function (ouvrier) {
         setFormModif(true)
         setEditOuvrier(ouvrier)
+    }
+
+    const closeModal = function () {
+        setFormModif(false)
     }
 
     return <>
@@ -33,7 +37,12 @@ export default function ListeOuvrier({ data }) {
         }
 
         {
-            formModif && <FormulaireModif dataEdit={editOuvrier} />
+            formModif && 
+            <FormulaireModif
+                dataEdit={editOuvrier}
+                passModifData={passModifData}
+                closeModal={closeModal}
+            />
         }
 
     </>
