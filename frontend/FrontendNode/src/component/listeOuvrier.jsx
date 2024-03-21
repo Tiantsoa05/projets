@@ -9,7 +9,7 @@ export default function ListeOuvrier(){
 
 
     useEffect(function(){
-        fetch('http:localhost:5000/employers/all')
+        fetch('http://localhost:5000/employers/all')
         .then(Response=>Response.json())
         .then(data=>modifOuvriers(data))
         .catch(error=>console.error(error))
@@ -24,11 +24,7 @@ export default function ListeOuvrier(){
         {
             ouvriers.map(ouvrier=>
                 <div>
-
-<span>Nom:{ouvrier.nom_ouvrier}</span>
-
-
-
+                    <span>Nom:{ouvrier.nom_ouvrier}</span>
                 </div>)
         }
         </>
