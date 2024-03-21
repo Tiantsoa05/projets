@@ -1,31 +1,65 @@
 import React, { useState } from "react";
 
-export default function FormulaireModif(afficher, infoOuvrier) {
+export default function FormulaireModif({ dataEdit }) {
 
-    const [detailOuvrier, setInfoOuvrier] = useState(infoOuvrier)
+    const [detailOuvrier, setInfoOuvrier] = useState(dataEdit)
     const { num_ouvrier, nom_ouvrier, sexe_ouvrier, nbr_jours, taux_journalier } = detailOuvrier
 
-    const [num,setNum] = useState("")
-    const [nom,setNom] = useState("")
-    const [sexe,setSexe] = useState("")
-    const [nbr,setNbr] = useState(0)
-    const [taux,setTaux] = useState(0)
+    const [num, setNum] = useState(num_ouvrier)
+    const [nom, setNom] = useState(nom_ouvrier)
+    const [sexe, setSexe] = useState(sexe_ouvrier)
+    const [nbr, setNbr] = useState(nbr_jours)
+    const [taux, setTaux] = useState(taux_journalier)
+
+    const sendModif = function (){
+        
+    }
 
     return <div className="blur-container">
-        
+
         <div className="form">
             <form>
-                <div><input type="text" name="num_ouvrier" value={num_ouvrier} onChange={setNum(num_ouvrier)}/></div>
-                <div><input type="text" name="nom_ouvrier" value={nom_ouvrier} onChange={setNom(nom_ouvrier)}/></div>
+                <div><input type="text" name="num_ouvrier" value={num} onChange={(e) => setNum(e.target.value)} /></div>
+                <div><input type="text" name="nom_ouvrier" value={nom} onChange={(e) => setNom(e.target.value)} /></div>
                 <div>
-                    <input type="radio" name="sexe_ouvrier" value="" />
-                    <input type="radio" name="sexe_ouvrier" value="" />
+                    <label htmlFor="sexe_ouvrier">
+                        <input
+                            type="radio"
+                            name="sexe_ouvrier"
+                            value="G"
+                            checked={sexe === "G"}
+                            onChange={(e) => setSexe(e.target.value)}
+                        />Homme
+                    </label>
+                    <label htmlFor="sexe_ouvrier">
+                        <input
+                            type="radio"
+                            name="sexe_ouvrier"
+                            value="F"
+                            checked={sexe === "F"}
+                            onChange={(e) => setSexe(e.target.value)}
+                        />Femme
+                    </label>
                 </div>
-                <div><input type="text" name="nbr_jours" value={nbr_jours} /></div>
-                <div><input type="text" name="taux_journalier" value={taux_journalier} /></div>
                 <div>
-                    <button className="btn-confirm">Ajouter</button>
-                    <button className="btn-cancel" onClick={afficher(false)}>Annuler</button>
+                    <input
+                        type="text"
+                        name="nbr_jours"
+                        value={nbr}
+                        onChange={(e) => setNbr(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        name="taux_journalier"
+                        value={taux}
+                        onChange={(e) => setTaux(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <button className="btn-confirm" onClick={sendModif}>Ajouter</button>
+                    <button className="btn-cancel">Annuler</button>
                 </div>
             </form>
         </div>

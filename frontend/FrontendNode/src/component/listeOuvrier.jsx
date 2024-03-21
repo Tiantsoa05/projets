@@ -1,17 +1,21 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
+import FormulaireModif from "./FormulaireModif";
 
 
-export default function ListeOuvrier({data}) {
+export default function ListeOuvrier({ data }) {
 
 
-    const ouvrirFormulaireModification = function (ouvrier){
-        // afficher(true ,ouvrier)
+    const [formModif, setFormModif] = useState(false)
+    const [editOuvrier, setEditOuvrier] = useState([])
+
+    const confirmerSuppression = function (ouvrier) {
+        console.log(ouvrier)
     }
 
-    const confirmerSuppression = function (ouvrier){
-
+    const remplirModifForm = function (ouvrier) {
+        setFormModif(true)
+        setEditOuvrier(ouvrier)
     }
 
     return <>
@@ -21,11 +25,15 @@ export default function ListeOuvrier({data}) {
                 <div className="container" key={ouvrier.id}>
                     <div className="ouvrier">{ouvrier.nom_ouvrier}</div>
                     <div className="boutons">
-                        <button onClick={ouvrirFormulaireModification(ouvrier)}>Modifier</button>
-                        <button onClick={confirmerSuppression(ouvrier)}>Supprimer</button>
+                        <button onClick={() => remplirModifForm(ouvrier)}>Modifier</button>
+                        <button onClick={() => confirmerSuppression(ouvrier)}>Supprimer</button>
                     </div>
                 </div>
             )
+        }
+
+        {
+            formModif && <FormulaireModif dataEdit={editOuvrier} />
         }
 
     </>
