@@ -52,4 +52,23 @@ app.put('/modif/:id',function(request,response){
 
 })
 
+//Ajouter un employer
+app.post('/add ',function(request,reponse)
+    {
+        const data = request.body
+
+        database.query("INSERT INTO ouvriers (num_ouvrier,nom_ouvrier,sexe_ouvrier,nbr_jours,taux_journalier) VALUES ?",[data],(error, results)=>{
+            if(error) throw error
+            else{
+                reponse.end(JSON.stringify(
+                    {
+                        message: "Ajout avec succès"
+                    }
+                ))
+            }
+        })
+
+    }
+)
+
 export default app
