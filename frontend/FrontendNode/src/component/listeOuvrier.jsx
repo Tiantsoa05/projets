@@ -3,31 +3,29 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 
-export default function ListeOuvrier(){
-    const [ouvriers,modifOuvriers]=useState([])
+export default function ListeOuvrier() {
+    const [ouvriers, modifOuvriers] = useState([])
 
 
 
-    useEffect(function(){
+    useEffect(function () {
         fetch('http://localhost:5000/employers/all')
-        .then(Response=>Response.json())
-        .then(data=>modifOuvriers(data))
-        .catch(error=>console.error(error))
-    },[])
+            .then(Response => Response.json())
+            .then(data => modifOuvriers(data))
+            .catch(error => console.error(error))
+    }, [])
 
 
-    return
-    
+    return <>
 
-        <>
-        
         {
-            ouvriers.map(ouvrier=>
+            ouvriers.map(ouvrier =>
                 <div>
                     <span>Nom:{ouvrier.nom_ouvrier}</span>
-                </div>)
+                </div>
+            )
         }
-        </>
+    </>
 
 
 }

@@ -40,7 +40,7 @@ app.put('/modif/:id',function(request,response){
 
     const {num_ouvrier,nom_ouvrier,sexe_ouvrier,nbr_jours,taux_journalier} = request.body
 
-    database.query("UPDATE FROM ouvriers SET num_ouvrier=? , nom_ouvrier=?, sexe_ouvrier=? ,nbr_jours=? , taux_journalier=?  WHERE id=?",
+    database.query("UPDATE ouvriers SET num_ouvrier=? , nom_ouvrier=?, sexe_ouvrier=? ,nbr_jours=? , taux_journalier=?  WHERE id=?",
     [num_ouvrier,nom_ouvrier,sexe_ouvrier,nbr_jours,taux_journalier,id],function(error,results){
         if(error)throw error
         else{
