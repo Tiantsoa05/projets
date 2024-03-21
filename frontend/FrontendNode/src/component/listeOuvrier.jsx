@@ -6,8 +6,6 @@ import { useState } from "react";
 export default function ListeOuvrier() {
     const [ouvriers, modifOuvriers] = useState([])
 
-
-
     useEffect(function () {
         fetch('http://localhost:5000/employers/all')
             .then(Response => Response.json())
@@ -16,15 +14,28 @@ export default function ListeOuvrier() {
     }, [])
 
 
+    const ouvrirFormulaireModification = function (ouvrier){
+
+    }
+
+    const confirmerSuppression = function (ouvrier){
+
+    }
+
     return <>
 
         {
             ouvriers.map(ouvrier =>
-                <div>
-                    <span>Nom:{ouvrier.nom_ouvrier}</span>
+                <div className="container">
+                    <div className="ouvrier">{ouvrier.nom_ouvrier}</div>
+                    <div className="boutons">
+                        <button onClick={ouvrirFormulaireModification(ouvrier)}>Modifier</button>
+                        <button onClick={confirmerSuppression(ouvrier)}>Supprimer</button>
+                    </div>
                 </div>
             )
         }
+
     </>
 
 
