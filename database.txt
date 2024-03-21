@@ -1,0 +1,20 @@
+INSERT INTO `ouvriers` (`num_ouvrier`, `nom_ouvrier`, `sexe_ouvrier`, `nbr_jours`, `taux_journalier`) VALUES 
+('EM001','RAHERIMANDIMBY Jossuca', 'G', '30', '900000'),
+
+('EM002', 'VAHATRA Safidy', 'F', '10', '50000'),
+
+('EM003', 'RAHERY Tiana', 'G', '20', '60000'),
+
+('EM004', 'RAHERIMANDIMBY Jossuca', 'G', '30', '900000'),
+
+('EM005', 'FANANTENANA  JULIE', 'F', '15', '100000'),
+
+('EM006', 'ANRDRITIANA ROVA', 'G', '20', '250000'),
+
+('EM007', 'NIAINA seheno', 'F', '30', '400000')
+
+
+('EM008', 'FABIOLA ninie', 'F', '15', '80000'),
+('EM009', 'RATIARISON Gregoire', 'G', '28', '420000')
+
+
