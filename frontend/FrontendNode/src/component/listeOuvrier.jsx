@@ -3,19 +3,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 
-export default function ListeOuvrier(afficher) {
-    const [ouvriers, modifOuvriers] = useState([])
-
-    useEffect(function () {
-        fetch('http://localhost:5000/employers/all')
-            .then(Response => Response.json())
-            .then(data => modifOuvriers(data))
-            .catch(error => console.error(error))
-    }, [])
+export default function ListeOuvrier({data}) {
 
 
     const ouvrirFormulaireModification = function (ouvrier){
-
+        // afficher(true ,ouvrier)
     }
 
     const confirmerSuppression = function (ouvrier){
@@ -25,8 +17,8 @@ export default function ListeOuvrier(afficher) {
     return <>
 
         {
-            ouvriers.map(ouvrier =>
-                <div className="container">
+            data.map(ouvrier =>
+                <div className="container" key={ouvrier.id}>
                     <div className="ouvrier">{ouvrier.nom_ouvrier}</div>
                     <div className="boutons">
                         <button onClick={ouvrirFormulaireModification(ouvrier)}>Modifier</button>

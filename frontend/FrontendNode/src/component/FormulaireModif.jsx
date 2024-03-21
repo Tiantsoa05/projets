@@ -12,7 +12,7 @@ export default function FormulaireModif(afficher, infoOuvrier) {
     const [taux,setTaux] = useState(0)
 
     return <div className="blur-container">
-
+        
         <div className="form">
             <form>
                 <div><input type="text" name="num_ouvrier" value={num_ouvrier} onChange={setNum(num_ouvrier)}/></div>
