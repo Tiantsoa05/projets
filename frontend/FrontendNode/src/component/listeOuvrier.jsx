@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 
-export default function ListeOuvrier() {
+export default function ListeOuvrier(afficher) {
     const [ouvriers, modifOuvriers] = useState([])
 
     useEffect(function () {

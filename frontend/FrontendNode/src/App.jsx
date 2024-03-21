@@ -11,7 +11,7 @@ function App() {
   }
   return (
     <>
-      <ListeOuvrier></ListeOuvrier>
+      <ListeOuvrier afficher={afficherFormModif}/>
       {
         formModif && <FormulaireModif afficher={afficherFormModif}/>
       }
