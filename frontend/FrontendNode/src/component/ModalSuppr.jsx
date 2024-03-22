@@ -3,6 +3,7 @@ export default function ModalSuppr({ supprId, passSupprData, closesupprModal }) 
 
     const confirmSupprData = function () {
         passSupprData(supprId)
+        closesupprModal()
     }
 
     return <div>

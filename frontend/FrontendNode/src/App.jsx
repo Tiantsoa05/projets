@@ -41,7 +41,15 @@ function App() {
       console.log(message)
 
       let editedOuvrier = ouvriers
-      editedOuvrier.splice(ouvriers.indexOf(supprDataId),1)
+      let supprIndex = 0
+      ouvriers.forEach((ouvrier, index) => {
+        if (ouvrier.id === supprDataId) {
+          supprIndex = index
+          return
+        }
+      })
+      editedOuvrier.splice(supprIndex,1)
+      
       modifOuvriers(editedOuvrier)
     })
 
