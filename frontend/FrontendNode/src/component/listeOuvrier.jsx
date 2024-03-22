@@ -2,17 +2,19 @@ import React from "react";
 import { useState } from "react";
 import FormulaireModif from "./FormulaireModif";
 import ModalSuppr from "./ModalSuppr";
+import StatsOuvriers from "./StatsOuvriers";
 
 
 export default function ListeOuvrier({ data, passModifData, passSupprData }) {
 
-
+    const [supprData,setSupprData]= useState([])
     const [formModif, setFormModif] = useState(false)
     const [modalSuppr, setModalSuppr]=useState(false)
     const [editOuvrier, setEditOuvrier] = useState([])
 
     const confirmerSuppression = function (ouvrier) {
         setModalSuppr(true)
+        setSupprData(ouvrier)
     }
 
     const remplirModifForm = function (ouvrier) {
@@ -52,7 +54,7 @@ export default function ListeOuvrier({ data, passModifData, passSupprData }) {
 
         {
             modalSuppr && 
-            <ModalSuppr supprId={editOuvrier.id} passSupprData={passSupprData} closesupprModal={closesupprModal}/>
+            <ModalSuppr supprData={supprData} passSupprData={passSupprData} closesupprModal={closesupprModal}/>
         }
 
     </>

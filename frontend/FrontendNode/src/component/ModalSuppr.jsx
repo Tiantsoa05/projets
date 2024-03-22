@@ -1,8 +1,9 @@
 import React from "react";
-export default function ModalSuppr({ supprId, passSupprData, closesupprModal }) {
+export default function ModalSuppr({ supprData, passSupprData, closesupprModal }) {
 
+    const {id} = supprData
     const confirmSupprData = function () {
-        passSupprData(supprId)
+        passSupprData(id)
         closesupprModal()
     }
 

@@ -21,6 +21,7 @@ export default function FormulaireModif({ dataEdit ,passModifData, closeModal}) 
             nbr_jours:nbr,
             taux_journalier:taux
         }
+        console.log({avant: data})
         passModifData(data)
         closeModal()
     }
