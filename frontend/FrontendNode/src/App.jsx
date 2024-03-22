@@ -31,14 +31,29 @@ function App() {
 
     let editedOuvrier = ouvriers
 
-    editedOuvrier[editIndex] = editData
     modifOuvriers(editedOuvrier)
 
   }
 
+  const confirmSuppr = function(supprDataId){
+    axiosQuery.delete(`/suppr/${supprDataId}`).then(response => {
+      const {message} = response.data 
+      console.log(message)
+
+      let editedOuvrier = ouvriers
+      editedOuvrier.splice(ouvriers.indexOf(supprDataId),1)
+      modifOuvriers(editedOuvrier)
+    })
+
+  }
+ 
   return (
     <>
-      <ListeOuvrier data={ouvriers} passModifData={confirmModif} />
+      <ListeOuvrier 
+      data={ouvriers} 
+      passModifData={confirmModif} 
+      passSupprData={confirmSuppr}
+      />
     </>
   )
 }
