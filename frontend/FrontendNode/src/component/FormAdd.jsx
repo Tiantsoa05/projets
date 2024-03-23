@@ -1,29 +1,27 @@
-import React, { useState } from "react";
+import react, {useState} from "react"
 
-export default function FormulaireModif({ dataEdit ,passModifData, closeModal}) {
+export default function FormAdd({passAddData,closeAddModal}){
 
-    const [detailOuvrier, setInfoOuvrier] = useState(dataEdit)
-    const { id, num_ouvrier, nom_ouvrier, sexe_ouvrier, nbr_jours, taux_journalier } = detailOuvrier
+    const [num, setNum] = useState("")
+    const [nom, setNom] = useState("")
+    const [sexe, setSexe] = useState("")
+    const [nbr, setNbr] = useState("")
+    const [taux, setTaux] = useState("")
 
-    const [num, setNum] = useState(num_ouvrier)
-    const [nom, setNom] = useState(nom_ouvrier)
-    const [sexe, setSexe] = useState(sexe_ouvrier)
-    const [nbr, setNbr] = useState(nbr_jours)
-    const [taux, setTaux] = useState(taux_journalier)
 
-    const sendModif = function (e){
+    const sendAdd = function(e){
         e.preventDefault()
         let data = {
-            id,
-            num_ouvrier:num,
-            nom_ouvrier:nom,
-            sexe_ouvrier:sexe,
-            nbr_jours:nbr,
-            taux_journalier:taux
+            num_ouvrier: num,
+            nom_ouvrier: nom,
+            sexe_ouvrier: sexe,
+            nbr_jours: nbr,
+            taux_journalier: taux
         }
-        passModifData(data)
-        closeModal()
+        passAddData(data)
+        closeAddModal()
     }
+
 
     return <div className="blur-container">
 
@@ -37,7 +35,6 @@ export default function FormulaireModif({ dataEdit ,passModifData, closeModal}) 
                             type="radio"
                             name="sexe_ouvrier"
                             value="G"
-                            checked={sexe === "G"}
                             onChange={(e) => setSexe(e.target.value)}
                         />Homme
                     </label>
@@ -46,7 +43,6 @@ export default function FormulaireModif({ dataEdit ,passModifData, closeModal}) 
                             type="radio"
                             name="sexe_ouvrier"
                             value="F"
-                            checked={sexe === "F"}
                             onChange={(e) => setSexe(e.target.value)}
                         />Femme
                     </label>
@@ -68,7 +64,7 @@ export default function FormulaireModif({ dataEdit ,passModifData, closeModal}) 
                     />
                 </div>
                 <div>
-                    <button className="btn-confirm" onClick={sendModif}>Ajouter</button>
+                    <button className="btn-confirm" onClick={sendAdd}>Ajouter</button>
                     <button className="btn-cancel">Annuler</button>
                 </div>
             </form>

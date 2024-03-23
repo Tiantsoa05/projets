@@ -2,14 +2,13 @@ import React from "react";
 import { useState } from "react";
 import FormulaireModif from "./FormulaireModif";
 import ModalSuppr from "./ModalSuppr";
-import StatsOuvriers from "./StatsOuvriers";
 
 
-export default function ListeOuvrier({ data, passModifData, passSupprData }) {
+export default function ListeOuvrier({ data, passModifData, passSupprData, calcSalaire }) {
 
-    const [supprData,setSupprData]= useState([])
+    const [supprData, setSupprData] = useState([])
     const [formModif, setFormModif] = useState(false)
-    const [modalSuppr, setModalSuppr]=useState(false)
+    const [modalSuppr, setModalSuppr] = useState(false)
     const [editOuvrier, setEditOuvrier] = useState([])
 
     const confirmerSuppression = function (ouvrier) {
@@ -25,7 +24,7 @@ export default function ListeOuvrier({ data, passModifData, passSupprData }) {
     const closeModal = function () {
         setFormModif(false)
     }
-    const closesupprModal = function(){
+    const closesupprModal = function () {
         setModalSuppr(false)
     }
 
@@ -35,6 +34,9 @@ export default function ListeOuvrier({ data, passModifData, passSupprData }) {
             data.map(ouvrier =>
                 <div className="container" key={ouvrier.id}>
                     <div className="ouvrier">{ouvrier.nom_ouvrier}</div>
+                    <div className="salaire">{calcSalaire(ouvrier)} Ar </div>
+                    <div className="nbr">{ouvrier.nbr_jours}</div>
+                    <div className="taux">{ouvrier.taux_journalier}</div>
                     <div className="boutons">
                         <button onClick={() => remplirModifForm(ouvrier)}>Modifier</button>
                         <button onClick={() => confirmerSuppression(ouvrier)}>Supprimer</button>
@@ -44,7 +46,7 @@ export default function ListeOuvrier({ data, passModifData, passSupprData }) {
         }
 
         {
-            formModif && 
+            formModif &&
             <FormulaireModif
                 dataEdit={editOuvrier}
                 passModifData={passModifData}
@@ -53,8 +55,8 @@ export default function ListeOuvrier({ data, passModifData, passSupprData }) {
         }
 
         {
-            modalSuppr && 
-            <ModalSuppr supprData={supprData} passSupprData={passSupprData} closesupprModal={closesupprModal}/>
+            modalSuppr &&
+            <ModalSuppr supprData={supprData} passSupprData={passSupprData} closesupprModal={closesupprModal} />
         }
 
     </>
