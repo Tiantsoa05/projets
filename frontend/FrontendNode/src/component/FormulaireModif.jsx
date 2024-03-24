@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function FormulaireModif({ dataEdit ,passModifData, closeModal}) {
+export default function FormulaireModif({ dataEdit, passModifData, closeModal }) {
 
     const [detailOuvrier, setInfoOuvrier] = useState(dataEdit)
     const { id, num_ouvrier, nom_ouvrier, sexe_ouvrier, nbr_jours, taux_journalier } = detailOuvrier
@@ -11,26 +11,57 @@ export default function FormulaireModif({ dataEdit ,passModifData, closeModal}) 
     const [nbr, setNbr] = useState(nbr_jours)
     const [taux, setTaux] = useState(taux_journalier)
 
-    const sendModif = function (e){
+    const [errorNumInput, setErrorNumInput] = useState(false)
+    const [errorNomInput, setErrorNomInput] = useState(false)
+    const [errorNbrInput, setErrorNbrInput] = useState(false)
+    const [errorTauxInput, setErrorTauxInput] = useState(false)
+
+
+    const handleNumInput = function (e) {
+        setErrorNumInput(e.target.value === "")
+        setNum(e.target.value)
+    }
+    const handleNomInput = function (e) {
+        setErrorNomInput(e.target.value === "")
+        setNom(e.target.value)
+    }
+    const handleNbrInput = function (e) {
+        setErrorNbrInput(e.target.value === "" || parseInt(nbr) === NaN)
+        setNbr(e.target.value)
+    }
+    const handleTauxInput = function (e) {
+        setErrorTauxInput(e.target.value === "" || parseInt(taux) === NaN)
+        setTaux(e.target.value)
+    }
+
+    const sendModif = function (e) {
         e.preventDefault()
-        let data = {
-            id,
-            num_ouvrier:num,
-            nom_ouvrier:nom,
-            sexe_ouvrier:sexe,
-            nbr_jours:nbr,
-            taux_journalier:taux
+
+        if (errorNumInput || errorNomInput || errorNbrInput || errorTauxInput) {
+            return
+        } else {
+            let data = {
+                id,
+                num_ouvrier: num,
+                nom_ouvrier: nom,
+                sexe_ouvrier: sexe,
+                nbr_jours: nbr,
+                taux_journalier: taux
+            }
+            passModifData(data)
+            closeModal()
         }
-        passModifData(data)
-        closeModal()
+
     }
 
     return <div className="blur-container">
 
         <div className="form">
             <form>
-                <div><input type="text" name="num_ouvrier" value={num} onChange={(e) => setNum(e.target.value)} /></div>
-                <div><input type="text" name="nom_ouvrier" value={nom} onChange={(e) => setNom(e.target.value)} /></div>
+                <div><input type="text" name="num_ouvrier" value={num} onChange={handleNumInput} /></div>
+                {errorNumInput && <div className="error">Ce champ ne doit pas être vide et ne dépasse pas 5 caractères</div>}
+                <div><input type="text" name="nom_ouvrier" value={nom} onChange={handleNomInput} /></div>
+                {errorNomInput && <div className="error">Ce champ ne doit pas être vide</div>}
                 <div>
                     <label htmlFor="sexe_ouvrier">
                         <input
@@ -56,17 +87,19 @@ export default function FormulaireModif({ dataEdit ,passModifData, closeModal}) 
                         type="text"
                         name="nbr_jours"
                         value={nbr}
-                        onChange={(e) => setNbr(e.target.value)}
+                        onChange={handleNbrInput}
                     />
                 </div>
+                {errorNbrInput && <div className="error">Ce champ ne doit être vide ni contenant des caractères</div>}
                 <div>
                     <input
                         type="text"
                         name="taux_journalier"
                         value={taux}
-                        onChange={(e) => setTaux(e.target.value)}
+                        onChange={handleTauxInput}
                     />
                 </div>
+                {errorTauxInput && <div className="error">Ce champ ne doit être vide ni contenant des caractères</div>}
                 <div>
                     <button className="btn-confirm" onClick={sendModif}>Ajouter</button>
                     <button className="btn-cancel">Annuler</button>

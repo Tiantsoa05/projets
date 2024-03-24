@@ -1,6 +1,6 @@
-import react, {useState} from "react"
+import react, { useRef, useState } from "react"
 
-export default function FormAdd({passAddData,closeAddModal}){
+export default function FormAdd({ passAddData, closeAddModal }) {
 
     const [num, setNum] = useState("")
     const [nom, setNom] = useState("")
@@ -8,18 +8,46 @@ export default function FormAdd({passAddData,closeAddModal}){
     const [nbr, setNbr] = useState("")
     const [taux, setTaux] = useState("")
 
+    const [errorNumInput, setErrorNumInput] = useState(false)
+    const [errorNomInput, setErrorNomInput] = useState(false)
+    const [errorSexeInput, setErrorSexeInput] = useState(false)
+    const [errorNbrInput, setErrorNbrInput] = useState(false)
+    const [errorTauxInput, setErrorTauxInput] = useState(false)
 
-    const sendAdd = function(e){
+    const numRef = useRef()
+    const nomRef = useRef()
+    const nbrRef = useRef()
+    const tauxRef = useRef()
+
+    const sendAdd = function (e) {
         e.preventDefault()
-        let data = {
-            num_ouvrier: num,
-            nom_ouvrier: nom,
-            sexe_ouvrier: sexe,
-            nbr_jours: nbr,
-            taux_journalier: taux
+
+        setErrorNumInput(numRef.current.value.length === 0 || numRef.current.value.length > 5)
+        setErrorNomInput(nomRef.current.value.length === 0)
+        setErrorSexeInput(sexe.length === 0)
+        setErrorNbrInput(nbrRef.current.value.length === 0 || parseInt(nbrRef.current.value) === NaN)
+        setErrorTauxInput(tauxRef.current.value.length === 0 || parseInt(tauxRef.current.value) === NaN)
+
+        if (
+            (numRef.current.value.length === 0 || numRef.current.value.length > 5)
+            || nomRef.current.value.length === 0
+            || (nbrRef.current.value.length === 0 || parseInt(nbrRef.current.value) === NaN)
+            || (tauxRef.current.value.length === 0 || parseInt(tauxRef.current.value) === NaN)
+            || sexe.length === 0
+        ) {
+            return
+        } else {
+            let data = {
+                num_ouvrier: num,
+                nom_ouvrier: nom,
+                sexe_ouvrier: sexe,
+                nbr_jours: nbr,
+                taux_journalier: taux
+            }
+            passAddData(data)
+            closeAddModal()
         }
-        passAddData(data)
-        closeAddModal()
+
     }
 
 
@@ -27,8 +55,27 @@ export default function FormAdd({passAddData,closeAddModal}){
 
         <div className="form">
             <form>
-                <div><input type="text" name="num_ouvrier" value={num} onChange={(e) => setNum(e.target.value)} /></div>
-                <div><input type="text" name="nom_ouvrier" value={nom} onChange={(e) => setNom(e.target.value)} /></div>
+                <div>
+                    <input
+                        type="text"
+                        name="num_ouvrier"
+                        placeholder="Numero d'identification"
+                        onChange={(e) => setNum(e.target.value)}
+                        ref={numRef}
+                        required
+                    />
+                </div>
+                {errorNumInput && <div className="error">Ce champ ne doit pas être vide et ne dépasse pas 5 caractères</div>}
+                <div><input
+                    type="text"
+                    name="nom_ouvrier"
+                    placeholder="Nom"
+                    onChange={(e) => setNom(e.target.value)}
+                    ref={nomRef}
+                    required
+                />
+                </div>
+                {errorNomInput && <div className="error">Ce champ ne doit pas être vide</div>}
                 <div>
                     <label htmlFor="sexe_ouvrier">
                         <input
@@ -47,22 +94,27 @@ export default function FormAdd({passAddData,closeAddModal}){
                         />Femme
                     </label>
                 </div>
+                {errorSexeInput && <div className="error">Veuillez choisir le sexe</div>}
                 <div>
                     <input
                         type="text"
                         name="nbr_jours"
-                        value={nbr}
+                        placeholder="Nombre de jours"
                         onChange={(e) => setNbr(e.target.value)}
+                        ref={nbrRef}
                     />
                 </div>
+                {errorNbrInput && <div className="error">Ce champ ne doit être vide ni contenant des caractères</div>}
                 <div>
                     <input
                         type="text"
                         name="taux_journalier"
-                        value={taux}
+                        placeholder="Taux  journalier"
                         onChange={(e) => setTaux(e.target.value)}
+                        ref={tauxRef}
                     />
                 </div>
+                {errorTauxInput && <div className="error">Ce champ ne doit être vide ni contenant des caractères</div>}
                 <div>
                     <button className="btn-confirm" onClick={sendAdd}>Ajouter</button>
                     <button className="btn-cancel">Annuler</button>
