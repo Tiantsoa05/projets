@@ -7,13 +7,20 @@ export default function ModalSuppr({ supprData, passSupprData, closesupprModal }
         closesupprModal()
     }
 
-    return <div>
-        <h2>Supprimer</h2>
-        <p>Voulez-vous vraiment supprimer </p>
-
+    const closeModal = function(e){
+        if(e.target.classList.contains('blur-container')){
+            closesupprModal()
+        }
+    }
+    return <div className="blur-container" onClick={closeModal}>
         <div>
-            <button onClick={confirmSupprData}>Confirmer</button>
-            <button onClick={closesupprModal}>Annuler</button>
+            <h2>Suppression de personnel</h2>
+            <p>Voulez-vous vraiment supprimer </p>
+
+            <div className="boutons">
+                <button onClick={confirmSupprData}>Confirmer</button>
+                <button onClick={closesupprModal}>Annuler</button>
+            </div>
         </div>
     </div>
 

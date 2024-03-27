@@ -18,18 +18,22 @@ export default function FormulaireModif({ dataEdit, passModifData, closeModal })
 
 
     const handleNumInput = function (e) {
+        e.stopPropagation()
         setErrorNumInput(e.target.value === "")
         setNum(e.target.value)
     }
     const handleNomInput = function (e) {
+        e.stopPropagation()
         setErrorNomInput(e.target.value === "")
         setNom(e.target.value)
     }
     const handleNbrInput = function (e) {
+        e.stopPropagation()
         setErrorNbrInput(e.target.value === "" || parseInt(nbr) === NaN)
         setNbr(e.target.value)
     }
     const handleTauxInput = function (e) {
+        e.stopPropagation()
         setErrorTauxInput(e.target.value === "" || parseInt(taux) === NaN)
         setTaux(e.target.value)
     }
@@ -54,9 +58,16 @@ export default function FormulaireModif({ dataEdit, passModifData, closeModal })
 
     }
 
-    return <div className="blur-container">
+    const closeForm = function(e){
+        if(e.target.classList.contains('blur-container')){
+            closeModal() 
+        }
+    }
+
+    return <div className="blur-container" onClick={closeForm}>
 
         <div className="form">
+            <h1>Modification de personnel</h1>
             <form>
                 <div><input type="text" name="num_ouvrier" value={num} onChange={handleNumInput} /></div>
                 {errorNumInput && <div className="error">Ce champ ne doit pas être vide et ne dépasse pas 5 caractères</div>}
@@ -100,9 +111,9 @@ export default function FormulaireModif({ dataEdit, passModifData, closeModal })
                     />
                 </div>
                 {errorTauxInput && <div className="error">Ce champ ne doit être vide ni contenant des caractères</div>}
-                <div>
-                    <button className="btn-confirm" onClick={sendModif}>Ajouter</button>
-                    <button className="btn-cancel">Annuler</button>
+                <div className="boutons">
+                    <button className="btn-confirm" onClick={sendModif}>Confirmer</button>
+                    <button className="btn-cancel" onClick={closeModal}>Annuler</button>
                 </div>
             </form>
         </div>

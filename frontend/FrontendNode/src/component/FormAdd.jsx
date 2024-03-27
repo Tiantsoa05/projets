@@ -50,10 +50,16 @@ export default function FormAdd({ passAddData, closeAddModal }) {
 
     }
 
+    const closeModal = function(e){
+        if(e.target.classList.contains('blue-container')){
+            closeAddModal()
+        }
+    }
 
-    return <div className="blur-container">
+    return <div className="blur-container" onClick={closeModal}>
 
         <div className="form">
+            <h1>Ajout de personnel</h1>
             <form>
                 <div>
                     <input
@@ -62,7 +68,6 @@ export default function FormAdd({ passAddData, closeAddModal }) {
                         placeholder="Numero d'identification"
                         onChange={(e) => setNum(e.target.value)}
                         ref={numRef}
-                        required
                     />
                 </div>
                 {errorNumInput && <div className="error">Ce champ ne doit pas être vide et ne dépasse pas 5 caractères</div>}
@@ -72,7 +77,6 @@ export default function FormAdd({ passAddData, closeAddModal }) {
                     placeholder="Nom"
                     onChange={(e) => setNom(e.target.value)}
                     ref={nomRef}
-                    required
                 />
                 </div>
                 {errorNomInput && <div className="error">Ce champ ne doit pas être vide</div>}
@@ -115,9 +119,9 @@ export default function FormAdd({ passAddData, closeAddModal }) {
                     />
                 </div>
                 {errorTauxInput && <div className="error">Ce champ ne doit être vide ni contenant des caractères</div>}
-                <div>
+                <div className="boutons">
                     <button className="btn-confirm" onClick={sendAdd}>Ajouter</button>
-                    <button className="btn-cancel">Annuler</button>
+                    <button className="btn-cancel" onClick={closeAddModal}>Annuler</button>
                 </div>
             </form>
         </div>

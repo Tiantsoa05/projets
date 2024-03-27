@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import FormulaireModif from "./FormulaireModif";
 import ModalSuppr from "./ModalSuppr";
+import man from '../../public/employe_1.png'
+import woman from '../../public/perso_woman.png'
 
 
-export default function ListeOuvrier({ data, passModifData, passSupprData, calcSalaire }) {
+export default function ListeOuvrier({ data, passModifData, passSupprData, calcSalaire, formater }) {
 
     const [ouvriers, setOuvriers] = useState([])
 
@@ -21,7 +23,9 @@ export default function ListeOuvrier({ data, passModifData, passSupprData, calcS
     const chercherOuvrier = function (e) {
         setSearchValue(e.target.value)
         let filteredSearch = data.filter(
-            (ouvrier) => ouvrier.nom_ouvrier.includes(e.target.value) || ouvrier.num_ouvrier.includes(e.target.value)
+            (ouvrier) =>
+                ouvrier.nom_ouvrier.toLowerCase().includes(e.target.value.toLowerCase())
+                || ouvrier.num_ouvrier.includes(e.target.value)
         )
         setOuvriers(filteredSearch)
     }
@@ -43,7 +47,7 @@ export default function ListeOuvrier({ data, passModifData, passSupprData, calcS
         setModalSuppr(false)
     }
 
-    return <>
+    return <section className="liste">
 
         <div className="search">
             <input type="text" name="nom" placeholder="Chercher" onChange={chercherOuvrier} />
@@ -53,28 +57,40 @@ export default function ListeOuvrier({ data, passModifData, passSupprData, calcS
             ouvriers.length > 0 ?
                 ouvriers.map(ouvrier =>
                     <div className="container" key={ouvrier.id}>
-                        <div className="numero">{ouvrier.num_ouvrier}</div>
-                        <div className="ouvrier">{ouvrier.nom_ouvrier}</div>
-                        <div className="salaire">{calcSalaire(ouvrier)} Ar </div>
-                        <div className="nbr">{ouvrier.nbr_jours}</div>
-                        <div className="taux">{ouvrier.taux_journalier}</div>
-                        <div className="boutons">
-                            <button onClick={() => remplirModifForm(ouvrier)}>Modifier</button>
-                            <button onClick={() => confirmerSuppression(ouvrier)}>Supprimer</button>
+                        <div className="image">
+                            <img src={ouvrier.sexe_ouvrier === "G" ? man : woman} alt="avatar" />
                         </div>
+                        <div className="ouvrier"><p><span className="title">Nom: </span>{ouvrier.nom_ouvrier}</p></div>
+                        <div className="salaire"><p><span className="title">Salaire: </span>{formater(calcSalaire(ouvrier))} Ar</p></div>
+                        <div className="nbr"><span className="title">Nb. jours: </span>{ouvrier.nbr_jours}</div>
+                        <div className="taux"><span className="title">Taux: </span>{formater(ouvrier.taux_journalier)} Ar</div>
+                        {
+                            <div className="boutons">
+                                <div className="btn-modif" onClick={() => remplirModifForm(ouvrier)}></div>
+                                <div className="btn-suppr" onClick={() => confirmerSuppression(ouvrier)}></div>
+                            </div>
+                        }
                     </div>
                 ) : (ouvriers.length === 0 && searchValue) ?
                     <div>Aucun ouvrier ne correspond à votre recherche</div> :
                     data.map(ouvrier =>
                         <div className="container" key={ouvrier.id}>
-                            <div className="ouvrier">{ouvrier.nom_ouvrier}</div>
-                            <div className="salaire">{calcSalaire(ouvrier)} Ar </div>
-                            <div className="nbr">{ouvrier.nbr_jours}</div>
-                            <div className="taux">{ouvrier.taux_journalier}</div>
-                            <div className="boutons">
-                                <button onClick={() => remplirModifForm(ouvrier)}>Modifier</button>
-                                <button onClick={() => confirmerSuppression(ouvrier)}>Supprimer</button>
+                            <div className="image">
+                                <img src={ouvrier.sexe_ouvrier === "G" ? man : woman} alt="avatar" />
                             </div>
+                            <div className="ouvrier"><p><span className="title">Nom: </span>{ouvrier.nom_ouvrier}</p></div>
+                            <div className="salaire"><p><span className="title">Salaire: </span>{formater(calcSalaire(ouvrier))} Ar</p></div>
+                            <div className="nbr"><p><span className="title">Nb. jours: </span>{ouvrier.nbr_jours}</p></div>
+                            <div className="taux">
+                                <p><span className="title">Taux: </span>{formater(ouvrier.taux_journalier)}</p>
+                            </div>
+
+                            {
+                                <div className="boutons">
+                                    <div className="btn-modif" onClick={() => remplirModifForm(ouvrier)}></div>
+                                    <div className="btn-suppr" onClick={() => confirmerSuppression(ouvrier)}></div>
+                                </div>
+                            }
                         </div>
                     )
         }
@@ -93,7 +109,7 @@ export default function ListeOuvrier({ data, passModifData, passSupprData, calcS
             <ModalSuppr supprData={supprData} passSupprData={passSupprData} closesupprModal={closesupprModal} />
         }
 
-    </>
+    </section>
 
 
 }

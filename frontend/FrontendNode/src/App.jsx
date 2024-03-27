@@ -15,7 +15,6 @@ function App() {
       .then(Response => Response.json())
       .then(data => {
         modifOuvriers(data)
-        setSalaires(data.map(calcSalaire))
       })
       .catch(error => console.error(error))
   }, [])
@@ -26,7 +25,7 @@ function App() {
 
     axiosQuery.put(`/modif/${editData.id}`, editData).then(response => {
       const { message } = response.data
-      console.log(message)
+      console.info(message)
     })
 
     ouvriers.forEach((ouvrier, index) => {
@@ -40,7 +39,7 @@ function App() {
     editedOuvrier[editIndex] = editData
 
     modifOuvriers(editedOuvrier)
-
+    setSalaires(ouvriers.map(calcSalaire))
   }
 
   const confirmSuppr = function (supprDataId) {
@@ -51,6 +50,7 @@ function App() {
       let editedOuvrier = ouvriers
 
       modifOuvriers(editedOuvrier.filter(ouvrier => ouvrier.id !== supprDataId))
+      setSalaires([])
     })
 
   }
@@ -64,6 +64,7 @@ function App() {
     newPersUpdate.push(newPers)
 
     modifOuvriers(newPersUpdate)
+    setSalaires([])
   }
 
   const closeAddModal = function () {
@@ -71,24 +72,41 @@ function App() {
   }
 
   return <>
-    <button onClick={() => setDisplayFormAdd(true)}>Nouvel employé</button>
+    <button className="btn-add" onClick={() => setDisplayFormAdd(true)}></button>
     <ListeOuvrier
       data={ouvriers}
       passModifData={confirmModif}
       passSupprData={confirmSuppr}
       calcSalaire={calcSalaire}
+      formater={formater}
     />
-    <div>
-      <div>
-        Salaire total: {ouvriers.map(calcSalaire).reduce((a, c) => a + c, 0)} Ar
-      </div>
-      <div>
-        Salaire maximal: {Math.max(...ouvriers.map(calcSalaire))} Ar
-      </div>
-      <div>
-        Salaire minimal: {Math.min(...ouvriers.map(calcSalaire))} Ar
-      </div>
-    </div>
+    {
+      Salaires.length > 0 ?
+        <div className="stats">
+          <div>
+            Salaire total: {formater(Salaires.reduce((a, c) => a + c, 0))} Ar
+          </div>
+          <div>
+            Salaire maximal: {formater(Math.max(...Salaires))} Ar
+          </div>
+          <div>
+            Salaire minimal: {formater(Math.min(...Salaires))} Ar
+          </div>
+        </div>
+        :
+        <div className="stats">
+          <div>
+            <span className="titre">Salaire total:</span> {formater(ouvriers.map(calcSalaire).reduce((a, c) => a + c, 0))} Ar
+          </div>
+          <div>
+            <span className="titre">Salaire maximal:</span>  {formater(Math.max(...ouvriers.map(calcSalaire)))} Ar
+          </div>
+          <div>
+            <span className="titre">Salaire minimal:</span>  {formater(Math.min(...ouvriers.map(calcSalaire)))} Ar
+          </div>
+        </div>
+    }
+
     {
       displayFormAdd && <FormAdd passAddData={confirmAdd} closeAddModal={closeAddModal} />
     }
@@ -98,5 +116,7 @@ function App() {
 function calcSalaire(ouvrier) {
   return parseInt(ouvrier.nbr_jours) * parseInt(ouvrier.taux_journalier)
 }
-
+function formater(nombre) {
+  return new Intl.NumberFormat("fr-FR").format(nombre)
+}
 export default App

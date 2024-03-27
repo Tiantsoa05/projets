@@ -1,0 +1,128 @@
+/* Formulaire modification */
+
+.blur-container {
+    position: absolute;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(4px);
+    top: 0;
+    left: 0;
+}
+
+.blur-container form {
+    z-index: 100 !important;
+    background-color: white;
+    padding: 15px 25px;
+}
+
+.search {
+    position: absolute;
+    top: 45px;
+    background-color: white;
+    height: 50px;
+    width: 75%;
+    padding-left: 25px;
+    display: flex;
+    left: 155px;
+    align-items: center;
+    z-index: -1 !important;
+}
+
+.search input {
+    width: 250px;
+    height: 80px;
+    height: 35px;
+    border: none;
+    padding-left: 18px;
+}
+
+.stats {
+    display: flex;
+    background-color: white;
+    width: 65.8vw;
+    padding: 18px 80px;
+    justify-content: space-between;
+    margin-top: 15px;
+    border-radius: 12px;
+}
+
+.stats .titre {
+    font-weight: bold;
+}
+
+
+/* Formulaires */
+.blur-container .form {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+}
+
+.form h1 {
+    color: blue;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+form {
+    line-height: 30px;
+}
+
+form input[type=text] {
+    padding-left: 15px;
+    height: 40px;
+    background-color: white;
+    font-size: 16px;
+    width: 25vw;
+    border: solid 1px black;
+    border-radius: 10px;
+}
+
+form .error {
+    color: red;
+    font-size: 12px;
+}
+
+form .boutons {
+    height: 35px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+form .boutons button {
+    cursor: pointer;
+    font-weight: bold;
+    transition: .6s all;
+    border-radius: 8px;
+    border: none;
+}
+
+form .boutons .btn-confirm {
+    background-color: rgba(26, 129, 40, 0.377);
+    border: solid .5px green;
+}
+
+form .boutons .btn-confirm:hover {
+    background-color: rgba(15, 100, 26, 0.836);
+    scale: 1.25;
+    color: white;
+}
+
+form .boutons .btn-cancel {
+    background-color: rgba(189, 28, 17, 0.377);
+    border: solid .5px red;
+}
+
+form .boutons .btn-cancel:hover {
+    background-color: rgba(212, 36, 12, 0.836);
+    scale: 1.25;
+    color: white;
+}

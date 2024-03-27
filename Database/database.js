@@ -4,7 +4,7 @@ const database = createConnection(
     {
         host:"localhost",
         user:"root",
-        password:"",
+        password:"jossuca",
         database:"employer"
     }
 )
