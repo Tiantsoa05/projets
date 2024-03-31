@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import ListeOuvrier from "./component/listeOuvrier"
 import axiosQuery from "./config/axios"
 import FormAdd from "./component/FormAdd"
-
+import { Link } from "react-router-dom"
 
 function App() {
 
@@ -72,7 +72,14 @@ function App() {
   }
 
   return <>
-    <button className="btn-add" onClick={() => setDisplayFormAdd(true)}></button>
+
+    <div className="commandes">
+      <button className="btn-add" onClick={() => setDisplayFormAdd(true)}></button>
+      <Link to="/stats">
+        <button className="btn-stats">Ici</button>
+      </Link>
+    </div>
+    
     <ListeOuvrier
       data={ouvriers}
       passModifData={confirmModif}
