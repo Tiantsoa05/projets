@@ -90,14 +90,14 @@ form .error {
     font-size: 12px;
 }
 
-form .boutons {
+ .boutons {
     height: 35px;
     display: flex;
     justify-content: space-around;
     margin-top: 15px;
 }
 
-form .boutons button {
+ .boutons button {
     cursor: pointer;
     font-weight: bold;
     transition: .6s all;
@@ -105,24 +105,62 @@ form .boutons button {
     border: none;
 }
 
-form .boutons .btn-confirm {
+ .boutons .btn-confirm {
     background-color: rgba(26, 129, 40, 0.377);
     border: solid .5px green;
 }
 
-form .boutons .btn-confirm:hover {
+ .boutons .btn-confirm:hover {
     background-color: rgba(15, 100, 26, 0.836);
     scale: 1.25;
     color: white;
 }
 
-form .boutons .btn-cancel {
+ .boutons .btn-cancel {
     background-color: rgba(189, 28, 17, 0.377);
     border: solid .5px red;
 }
 
-form .boutons .btn-cancel:hover {
+ .boutons .btn-cancel:hover {
     background-color: rgba(212, 36, 12, 0.836);
     scale: 1.25;
     color: white;
+}
+
+.suppr{
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 18px 15px;
+}
+
+.suppr h2{
+    color: blue;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 18px;
+}
+
+.graphstats{
+    margin-top: 75px;
+    background-color: #fff;
+    padding: 35px;
+    padding-bottom: 50px;
+    border-radius: 18px;
+    height: 60vh;
+    width: 72vw;
+    align-items: flex-start;
+}
+
+.graphstats .chart{
+    align-self: center;
+    height: 60vh;
+    margin-left: 8vw;
+}
+
+.graphstats .back{
+    background-image: url("../public/back.png");
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
 }

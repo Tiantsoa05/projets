@@ -13,13 +13,13 @@ export default function ModalSuppr({ supprData, passSupprData, closesupprModal }
         }
     }
     return <div className="blur-container" onClick={closeModal}>
-        <div>
+        <div className="suppr">
             <h2>Suppression de personnel</h2>
-            <p>Voulez-vous vraiment supprimer </p>
+            <p>Voulez-vous vraiment supprimer ?</p>
 
             <div className="boutons">
-                <button onClick={confirmSupprData}>Confirmer</button>
-                <button onClick={closesupprModal}>Annuler</button>
+                <button className="btn-confirm" onClick={confirmSupprData}>Confirmer</button>
+                <button className="btn-cancel" onClick={closesupprModal}>Annuler</button>
             </div>
         </div>
     </div>

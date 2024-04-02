@@ -76,7 +76,7 @@ function App() {
     <div className="commandes">
       <button className="btn-add" onClick={() => setDisplayFormAdd(true)}></button>
       <Link to="/stats">
-        <button className="btn-stats">Ici</button>
+        <button className="btn-stats"></button>
       </Link>
     </div>
     
