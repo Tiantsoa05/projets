@@ -16,9 +16,20 @@ app.get('/all', function (requete, reponse) {
 
 app.get('/stats', function (requete, reponse) {
 
-    database.query("SELECT * FROM stats ORDER BY mois", function (error, data) {
+    database.query("SELECT * FROM stats ORDER BY id", function (error, data) {
         if (error) throw error
         reponse.status(200).end(JSON.stringify(data))
+    })
+
+})
+
+app.post('/addstat', function (requete, reponse) {
+
+    const {mois,moyenne} = requete.body
+
+    database.query("INSERT INTO stats(mois,moyenne) VALUES",[mois,moyenne], function (error, result) {
+        if (error) throw error
+        reponse.status(200).end("Insertion réussie")
     })
 
 })
